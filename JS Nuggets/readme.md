@@ -1,0 +1,1 @@
+esta pasta JS Nuggets é um curso de JS do mesmo autor do curso de Node cobrindo alguns conceitos que a gente deveria saber antes de começar o curso de node.
