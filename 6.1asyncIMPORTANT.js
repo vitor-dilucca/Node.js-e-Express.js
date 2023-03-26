@@ -1,6 +1,12 @@
 //codigo usando promises ainda
 const fs = require('fs')
+const util = require('util')
 
+//promise do jeito bem feito usando a lib util(sem terminar)
+// const readFilePromise = util.promisify(readFile)
+// const writeFilePromise = util.promisify(writeFile)
+
+//Promise do jeito ruim
 function getText(path){
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf-8', (err, result) => {
@@ -13,13 +19,8 @@ function getText(path){
   })
 }
 
-//com promise
-getText('./4.2content/first.txt')
-  .then(result => console.log(result))
-  .catch((err)=>console.log(err))
-
-// com async-await
-/* const start = async()=>{
+//com async-await
+const start = async()=>{
   try {
     const first = await getText('./4.2content/first.txt')
     const second = await getText('./4.2content/second.txt')
@@ -29,4 +30,3 @@ getText('./4.2content/first.txt')
   }
 }
 start()
- */
