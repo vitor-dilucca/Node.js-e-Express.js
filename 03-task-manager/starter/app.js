@@ -2,15 +2,27 @@ const express = require('express')
 const app = express()
 const tasks=require('./routes/tasks')
 const port = 3000
+const connectDB = require('./db/connect')
+require('dotenv').config()
 
 app.use(express.json())
  
+//routes
 app.get('/hello', (req,res)=>{
   res.send('Task Manager App')
 })
 
 app.use('/api/v1/tasks',tasks)
 
-app.listen(port,()=>{
-  console.log(`SErver is listening on port ${port}`);
-}) 
+const start = async ()=>{
+  try {
+    await connectDB(process.env.MONGO_URI)
+    app.listen(port,()=>{
+      console.log(`SErver is listening on port ${port}`);
+    }) 
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+start()
