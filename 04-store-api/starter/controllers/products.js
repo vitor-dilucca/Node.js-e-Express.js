@@ -2,7 +2,10 @@ const Product = require('../models/product')
 
 // 4:20:00~ problema com o sort
 const getAllProductsStatic = async (req, res) => {
-  const products = await Product.find({}).select('name price')
+  const products = await Product.find({ price: { $gt: 30 } })
+    .sort('price')
+    .select('name price')
+  // .limit(10).skip(1)
   // throw new Error('testing async errors')
   res.status(200).json({
     nbHits: products.length,
@@ -29,15 +32,23 @@ const getAllProducts = async (req, res) => {
   if (sort) {
     const sortList = sort.split(',').join(' ')
     result = result.sort(sortList)
-  }else{
+  } else {
     result = result.sort('createAt')
   }
-  
+
   //fields
-  if(fields){
+  if (fields) {
     const fieldsList = fields.split(',').join(' ')
     result = result.select(fieldsList)
   }
+
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 10
+  const skip = (page - 1) * limit
+
+  result = result.skip(skip).limit(limit)
+
+
   const products = await result
   res.status(200).json({
     nbHits: products.length,
