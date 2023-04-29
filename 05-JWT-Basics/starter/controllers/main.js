@@ -4,14 +4,14 @@
 
 // setup authentication so only the request with jwt can access the dashboadr 
 const jwt = require('jsonwebtoken')
-const CustomAPIError = require('../errors/custom-error')
+const {BadRequestError} = require('../errors/')
 const login = async (req, res) => {
   const { username, password } = req.body
   //mongoose validation
   //joi
   //check in the controller
   if (!username || !password) {
-    throw new CustomAPIError('Please provide email and password', 400)
+    throw new BadRequestError('Please provide email and password')
   }
   //demo, normaly provided bt DB
   const id = new Date().getDate()
