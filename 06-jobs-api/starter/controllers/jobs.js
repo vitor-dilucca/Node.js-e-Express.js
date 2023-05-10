@@ -5,13 +5,13 @@ const getJob = async(req,res)=>{
   res.send('get job')
 }
 const createJob = async(req,res)=>{
-  res.send('get job')
+  res.send(req.user)
 }
 const updateJob = async(req,res)=>{
-  res.send('get job')
+  res.send('update job')
 }
 const deleteJob = async(req,res)=>{
-  res.send('get job')
+  res.send('delete job')
 }
 
 module.exports = {
